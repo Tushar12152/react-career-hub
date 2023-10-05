@@ -1,11 +1,28 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import useConPri from "../../Hooks/useConPri";
+// import useConPri from "../../Hooks/useConPri";
+
 
 const Header = () => {
+  const {user,logOut}=useConPri()
+  // console.log(user.email)
+
+  const handleSignOut=()=>{
+     logOut()
+     .then(()=>{
+      console.log('sign out success')
+     })
+     .catch(()=>{
+      console.log('sign out faild')
+     })
+  }
 const link= <>
                 <li> <NavLink to="/">Home</NavLink> </li>
                 <li><NavLink to="/statistic">Statistics</NavLink></li>
                 <li> <NavLink to="/applied">Applied Jobs</NavLink> </li>
                 <li><NavLink to="/blog">Blog</NavLink></li>
+                <li><NavLink to="/login">Log In</NavLink></li>
+                <li><NavLink to="/register">Register</NavLink></li>
            </>
 
     return (
@@ -19,7 +36,7 @@ const link= <>
        {link}
       </ul>
     </div>
-    <a className=" normal-case text-xl text-[#1A1919] font-extrabold text-4xl">CareerHub</a>
+    <a className=" normal-case text-xl text-[#1A1919] font-extrabold ">CareerHub</a>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1 text-[#757575]">
@@ -27,7 +44,13 @@ const link= <>
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn  bg-gradient-to-r from-violet-500 to-fuchsia-500">Star Applying</a>
+
+   { user?
+  <div className="flex gap-6 items-center justify-center flex-row-reverse">
+     <button onClick={handleSignOut} className="btn  bg-gradient-to-r from-violet-500 to-fuchsia-500">Sign Out</button>
+   <p className="bg-yellow-300">{user?.email}</p>
+  </div>:
+   <Link to='/login'  className="btn  bg-gradient-to-r from-violet-500 to-fuchsia-500">Sign In</Link>}
   </div>
 </div>
     );
