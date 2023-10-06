@@ -1,16 +1,18 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import useConPri from "../../Hooks/useConPri";
 // import useConPri from "../../Hooks/useConPri";
 
 
 const Header = () => {
   const {user,logOut}=useConPri()
+  const navigate=useNavigate()
   // console.log(user.email)
 
   const handleSignOut=()=>{
      logOut()
      .then(()=>{
       console.log('sign out success')
+      navigate('/')
      })
      .catch(()=>{
       console.log('sign out faild')

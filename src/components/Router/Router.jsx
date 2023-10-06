@@ -35,14 +35,18 @@ const myRouter=createBrowserRouter([
         },
         {
           path:'/applied',
-          element:<AppliedJobs></AppliedJobs>,
+          element:<PrivateRoute>
+                      <AppliedJobs></AppliedJobs> 
+                  </PrivateRoute>,
           loader:()=>fetch('/jobs.json')
           
 
         },
         {
           path:'/job/:id',
-          element:<PrivateRoute><JobDetail></JobDetail></PrivateRoute>,
+          element:<PrivateRoute>
+                     <JobDetail></JobDetail>
+                  </PrivateRoute>,
           loader:()=>fetch('../jobs.json')
         },
         {

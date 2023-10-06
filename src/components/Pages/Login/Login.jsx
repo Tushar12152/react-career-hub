@@ -1,10 +1,12 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiFillEyeInvisible,AiFillEye } from 'react-icons/ai';
 import { useState } from "react";
 import useConPri from "../../../Hooks/useConPri";
 
 const Login = () => {
-         
+    const [valid,setValid]=useState('')
+    const location=useLocation()
+    console.log(location,'login')
     const navigate=useNavigate()
 
     const [showPassword,setShowPassword]=useState(true)
@@ -14,15 +16,20 @@ const handleLogin=e=>{
     const email=e.target.email.value;
     const password=e.target.password.value;
     console.log(email,password)
+   if(email,password){
     LogIn(email,password)
     .then(result=>{
         console.log(result.user)
-        navigate('/')
+        navigate(location?.state?location.state:'/')
 
     })
     .catch(error=>{
         console.log(error)
     })
+   }
+   else{
+    setValid('give input email password 2tai')
+   }
 }
 
 const handleGoogleSignUp=()=>{
@@ -38,6 +45,7 @@ const handleGoogleSignUp=()=>{
 
     return (
         <div>
+            <p className="text-center font-bold text-red-400 text-4xl ">{valid}</p>
         <div className="hero min-h-screen bg-base-200">
   <div className="hero-content flex-col">
     <div className="text-center">

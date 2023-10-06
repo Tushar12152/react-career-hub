@@ -6,16 +6,24 @@ import useConPri from '../../../Hooks/useConPri';
 const Register = () => {
    
     const {createUser}=useConPri()
+    const [success,setSuccess]=useState('')
 
     const [showPassword,setShowPassword]=useState(true)
     const handleRegister=e=>{
         e.preventDefault()
         const email=e.target.email.value;
         const password=e.target.password.value;
+        setSuccess('')
+        if(!/^(?=.*[A-Z])(?=.*\d).{4,}$/.test(password)){
+            alert('password will be minimum 4 charecter 1 later will be capital and 1 will be number')
+            return
+        }
+
         console.log(email,password)
         createUser(email,password)
         .then(result=>{
             console.log(result.user)
+            setSuccess('Registration compleate please Log in now')
         })
         .catch(error=>{
             console.log(error)
@@ -24,6 +32,7 @@ const Register = () => {
 
     return (
         <div>
+            <p className='text-4xl font-bold text-center p-5 text-green-500 '>{success}</p>
              <div className="hero min-h-screen bg-base-200">
   <div className="hero-content flex-col">
     <div className="text-center">
